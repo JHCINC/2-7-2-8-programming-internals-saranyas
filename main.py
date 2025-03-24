@@ -34,25 +34,24 @@ tbox_genre = tk.Text(window, width=5, height=0, state="disabled")
 
 # Functions
 def rec_book():
-    # get the three entries
+    # get the genre input
     g = (e_genre.get())
 
   #  rec_book = randomise generator book
-    display_calc_age(calc_age) # display recommended book
+    #display_calc_age(calc_age) # display recommended book
 
 
-def find_age(d, m, y):
-    # find the age (difference between current and date of birth)
-    age = today.year - y - ((today.month, today.day) < (m, d))
-    tbox_age.config(state='normal')
+#def find_book(g):
+   #find book for reader
+    #book = randomise genrator thingie
 
 
-def display_calc_age(age):
-    tbox_age.config(state='normal')
-    ##age calculated is dispayed in the text boz after clearning the previous info in the textbox
-    tbox_age.delete('1.0', tk.END)
-    tbox_age.insert(tk.END, age)
-    tbox_age.config(state='disabled')
+def display_rec_book(book):
+    tbox_genre.config(state='normal')
+    ##book info is dispayed in the text boz after clearning the previous info in the textbox
+    tbox_genre.delete('1.0', tk.END)
+    tbox_genre.insert(tk.END, rec_book)
+    tbox_genre.config(state='disabled')
 
 
 # Button to calculate age
