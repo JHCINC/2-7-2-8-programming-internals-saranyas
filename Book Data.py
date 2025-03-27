@@ -32,21 +32,21 @@ tfios = {
     "name": "The Fault in our Stars",
     "author": "John Green",
     "ISBN": "9780525478812",
-    "keywords":
+    "keywords": "Love"
 }
 
 romance = {
-    "bttm" : book1,
-    "tbdate" : book2,
-    "tatbilb" : book3,
-    "hs" : book4,
-    "tfios" : book5
+    "bttm" : bttm,
+    "tbdate" : tbdate,
+    "tatbilb" : tatbilb,
+    "hs" : hs,
+    "tfios" : tfios
 }
 
 
 
 
-"name": "",
-"author": "",
-"ISBN": "",
-"keywords":
+#"name": "",
+#"author": "",
+#"ISBN": "",
+#"keywords":
