@@ -6,6 +6,14 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 
+#import book_data
+import book_data
+
+#import random for random selection of books
+import random
+
+
+
 # MAIN
 
 # creating custom window
@@ -36,10 +44,14 @@ tbox_genre = tk.Text(window, width=5, height=0, state="disabled")
 def rec_book():
     # get the genre input
     g = (e_genre.get())
+    if g = "romance":
+        rom = random.choice(list(book_data.romance.items()))
+        print(rom)
 
   #  rec_book = randomise generator book
-    #display_calc_age(calc_age) # display recommended book
 
+rom = random.choice(list(book_data.romance.items()))
+dys = random.choice(list(book_data.dystopian.items()))
 
 #def find_book(g):
    #find book for reader
