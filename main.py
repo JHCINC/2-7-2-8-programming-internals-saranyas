@@ -18,7 +18,7 @@ import random
 
 # creating custom window
 window = tk.Tk()
-window.geometry("300x300")
+window.geometry("350x350")
 window.config(bg="#F7DC6F")
 window.resizable(width=False, height=False)
 window.title('Book Recommender!')
@@ -37,7 +37,7 @@ lb_genre = tk.Label(window, text="Genre: ", font=('Arial', 12, "bold"), fg="dark
 # Label for text box that will display the book
 lb_rbook = tk.Label(window, text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
                              bg="#F7DC6F")
-tbox_genre = tk.Text(window, width=5, height=0, state="disabled")
+tbox_genre = tk.Text(window, width=30, height=6, state="disabled")
 
 
 # Functions
@@ -54,6 +54,7 @@ def rec_book():
     elif g == "dystopian":
         dys = random.choice(list(book_data.dystopian.items()))
         print(dys)
+        display_rbook(dys)
 
     def rbook():
         rbook = rec_book
@@ -88,13 +89,13 @@ def exit():
 
 # Placing the elements on the screen
 lb_heading.place(x=70, y=5)
-lb_subheading.place(x=10, y=40)
+lb_subheading.place(x=50, y=40)
 lb_genre.place(x=100, y=70)
 e_genre.place(x=180, y=70)
 btn_recomend_book.place(x=100, y=100)
-btn_read.place(x=120, y=160)
-lb_rbook.place(x=50, y=200)
-tbox_genre.place(x=240, y=203)
-btn_exit.place(x=100, y=230)
+btn_read.place(x=120, y=140)
+lb_rbook.place(x=50, y=170)
+tbox_genre.place(x=50, y=200)
+btn_exit.place(x=100, y=310)
 
 tk.mainloop()
