@@ -24,7 +24,7 @@ window.resizable(width=False, height=False)
 window.title('Book Recommender!')
 
 # Entry boxes for fav genre
-e_genre = tk.Entry(window, width=5)
+e_genre = tk.Entry(window, width=18)
 
 # Labels for heading and subheading of GUI
 lb_heading = tk.Label(window, text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
@@ -50,6 +50,7 @@ def rec_book():
         rom = random.choice(list(book_data.romance.items()))
         print(rom)
         display_rbook(rom)
+        g.pop(rom)
 
     elif g == "dystopian":
         dys = random.choice(list(book_data.dystopian.items()))
@@ -82,6 +83,8 @@ btn_exit = tk.Button(window, text="Exit Application!", font=("Arial", 13), comma
 
 #button to re-recomend book
 btn_read = tk.Button(window, text="Read Already", font=("Arial", 13), command=rec_book)
+                     #if pressed, then take out current book from list to be chosen
+
 
 def exit():
     window.destroy()
