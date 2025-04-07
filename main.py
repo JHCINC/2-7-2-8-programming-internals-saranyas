@@ -12,7 +12,106 @@ import book_data
 #import random for random selection of books
 import random
 
+#functions
+def rec_book():
+    global current_book_key
+    global current_genre
+    # get the genre input
+    g = e_genre.get().lower()  # Convert to lowercase for case insensitivity
 
+    current_book = None
+
+    # choose random book in genres
+    if g == "romance":
+        if book_data.romance:  # Check if there are books left
+            # Get a random book key
+            book_key = random.choice(list(book_data.romance.keys()))
+            # Get the book data
+            current_book = book_data.romance[book_key]
+            # Display the book
+            display_rbook(f"Title: {current_book['name']}\nAuthor: {current_book['author']}\nISBN: {current_book['ISBN']}\nKeywords: {current_book['keywords']}")
+            # Store the current book key as a global variable for the "Read Already" button
+
+            current_book_key = book_key
+            current_genre = "romance"
+            print(f"Selected: {book_key} - {current_book['name']}")
+        else:
+            messagebox.showinfo("No Books Left", "You've read all the romance books!")
+
+    elif g == "dystopian":
+        if book_data.dystopian:  # Check if there are books left
+            # Get a random book key
+            book_key = random.choice(list(book_data.dystopian.keys()))
+            # Get the book data
+            current_book = book_data.dystopian[book_key]
+            # Display the book
+            display_rbook(
+                f"Title: {current_book['name']}\nAuthor: {current_book['author']}\nISBN: {current_book['ISBN']}\nKeywords: {current_book['keywords']}")
+            # Store the current book key as a global variable for the "Read Already" button
+            current_book_key = book_key
+            current_genre = "dystopian"
+            print(f"Selected: {book_key} - {current_book['name']}")
+        else:
+            messagebox.showinfo("No Books Left", "You've read all the dystopian books!")
+    else:
+        messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{g}' genre.")
+
+# Create a new function for the "Read Already" button
+def mark_as_read():
+    global current_book_key
+    print("Mark as read: ", current_book_key)
+    global current_genre
+    # Check if a book is currently selected
+    if current_book_key is None or current_genre is None:
+        messagebox.showinfo("No Book Selected", "Please recommend a book first!")
+        return
+
+    # Remove the book from the appropriate dictionary
+    if current_genre == "romance":
+        if current_book_key in book_data.romance:
+            read_already = (list(current_book_key))
+            read_already.append(current_book_key)
+            print("read list", read_already)
+            removed_book = book_data.romance.pop(current_book_key)
+            messagebox.showinfo("Book Removed",
+                                f"'{removed_book['name']}' has been removed from your recommendations.")
+            # Clear the display
+            tbox_genre.config(state='normal')
+            tbox_genre.delete('1.0', tk.END)
+            tbox_genre.config(state='disabled')
+            # Reset the current book
+            current_book_key = None
+            current_genre = None
+
+    elif current_genre == "dystopian":
+        if current_book_key in book_data.dystopian:
+            removed_book = book_data.dystopian.pop(current_book_key)
+            messagebox.showinfo("Book Removed",
+                                f"'{removed_book['name']}' has been removed from your recommendations.")
+            # Clear the display
+            tbox_genre.config(state='normal')
+            tbox_genre.delete('1.0', tk.END)
+            tbox_genre.config(state='disabled')
+            # Reset the current book
+            current_book_key = None
+            current_genre = None
+
+
+def display_rbook(book):
+    tbox_genre.config(state='normal')
+    ##book info is dispayed in the text boz after clearning the previous info in the textbox
+    tbox_genre.delete('1.0', tk.END)
+    tbox_genre.insert(tk.END, book)
+    tbox_genre.config(state='disabled')
+
+def exit():
+    window.destroy()
+
+
+#global variables
+current_book_key = None
+current_genre = None
+global read_already_list
 
 # MAIN
 
@@ -40,39 +139,6 @@ lb_rbook = tk.Label(window, text="The recommended book for your is: ", font=('Ar
 tbox_genre = tk.Text(window, width=30, height=6, state="disabled")
 
 
-# Functions
-def rec_book():
-    # get the genre input
-    g = e_genre.get()
-
-    #choose random book in genres
-    if g == "romance":
-        rom = random.choice(list(book_data.romance.items()))
-        print(rom)
-        display_rbook(rom)
-        g.pop(rom)
-
-    elif g == "dystopian":
-        dys = random.choice(list(book_data.dystopian.items()))
-        print(dys)
-        display_rbook(dys)
-
-    def rbook():
-        rbook = rec_book
-        tbox_book.config(state='normal')
-
-
-#def find_book(g):
-   #find book for reader
-    #book = randomise genrator thingie
-
-
-def display_rbook(book):
-    tbox_genre.config(state='normal')
-    ##book info is dispayed in the text boz after clearning the previous info in the textbox
-    tbox_genre.delete('1.0', tk.END)
-    tbox_genre.insert(tk.END, book)
-    tbox_genre.config(state='disabled')
 
 
 # Button to recomend book
@@ -82,12 +148,10 @@ btn_recomend_book = tk.Button(window, text="Recommend Book!", font=("Arial", 13)
 btn_exit = tk.Button(window, text="Exit Application!", font=("Arial", 13), command=exit)
 
 #button to re-recomend book
-btn_read = tk.Button(window, text="Read Already", font=("Arial", 13), command=rec_book)
+btn_read = tk.Button(window, text="Read Already", font=("Arial", 13), command=mark_as_read)
                      #if pressed, then take out current book from list to be chosen
 
 
-def exit():
-    window.destroy()
 
 
 # Placing the elements on the screen
