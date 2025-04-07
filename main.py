@@ -17,12 +17,12 @@ def rec_book():
     global current_book_key
     global current_genre
     # get the genre input
-    g = e_genre.get().lower()  # Convert to lowercase for case insensitivity
+    genre = combo.get().lower()
 
     current_book = None
 
     # choose random book in genres
-    if g == "romance":
+    if genre == "romance":
         if book_data.romance:  # Check if there are books left
             # Get a random book key
             book_key = random.choice(list(book_data.romance.keys()))
@@ -38,7 +38,7 @@ def rec_book():
         else:
             messagebox.showinfo("No Books Left", "You've read all the romance books!")
 
-    elif g == "dystopian":
+    elif genre == "dystopian":
         if book_data.dystopian:  # Check if there are books left
             # Get a random book key
             book_key = random.choice(list(book_data.dystopian.keys()))
@@ -54,7 +54,7 @@ def rec_book():
         else:
             messagebox.showinfo("No Books Left", "You've read all the dystopian books!")
     else:
-        messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{g}' genre.")
+        messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre.")
 
 # Create a new function for the "Read Already" button
 def mark_as_read():
@@ -99,7 +99,6 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
-
 def display_rbook(book):
     tbox_genre.config(state='normal')
     ##book info is dispayed in the text boz after clearning the previous info in the textbox
@@ -125,8 +124,12 @@ window.config(bg="#F7DC6F")
 window.resizable(width=False, height=False)
 window.title('Book Recommender!')
 
-# Entry boxes for fav genre
-e_genre = tk.Entry(window, width=18)
+# Combobox for genres
+combo = ttk.Combobox(
+    state="radonly",
+    values=["Romance", "Dystopian"]
+)
+
 
 # Labels for heading and subheading of GUI
 lb_heading = tk.Label(window, text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
@@ -161,11 +164,12 @@ btn_read = tk.Button(window, text="Read Already", font=("Arial", 13), command=ma
 lb_heading.place(x=70, y=5)
 lb_subheading.place(x=50, y=40)
 lb_genre.place(x=100, y=70)
-e_genre.place(x=180, y=70)
+combo.place(x=180, y=70)
 btn_recomend_book.place(x=100, y=100)
 btn_read.place(x=120, y=140)
 lb_rbook.place(x=50, y=170)
 tbox_genre.place(x=50, y=200)
 btn_exit.place(x=100, y=310)
+
 
 tk.mainloop()
