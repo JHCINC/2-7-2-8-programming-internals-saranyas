@@ -85,6 +85,9 @@ def mark_as_read():
 
     elif current_genre == "dystopian":
         if current_book_key in book_data.dystopian:
+            read_already = (list(current_book_key))
+            read_already.append(current_book_key)
+            print("read list", read_already)
             removed_book = book_data.dystopian.pop(current_book_key)
             messagebox.showinfo("Book Removed",
                                 f"'{removed_book['name']}' has been removed from your recommendations.")
