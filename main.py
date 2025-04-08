@@ -37,6 +37,7 @@ def rec_book():
             print(f"Selected: {book_key} - {current_book['name']}")
         else:
             messagebox.showinfo("No Books Left", "You've read all the romance books!")
+            print(already_read)
 
     elif genre == "dystopian":
         if book_data.dystopian:  # Check if there are books left
@@ -55,6 +56,9 @@ def rec_book():
             messagebox.showinfo("No Books Left", "You've read all the dystopian books!")
     else:
         messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre.")
+
+#empty list for already read books to be added:
+already_read = []
 
 # Create a new function for the "Read Already" button
 def mark_as_read():
@@ -79,6 +83,10 @@ def mark_as_read():
             tbox_genre.config(state='normal')
             tbox_genre.delete('1.0', tk.END)
             tbox_genre.config(state='disabled')
+
+            #add to already read list
+            already_read.insert(0, read_already)
+
             # Reset the current book
             current_book_key = None
             current_genre = None
@@ -118,11 +126,18 @@ global read_already_list
 # MAIN
 
 # creating custom window
-window = tk.Tk()
-window.geometry("350x350")
-window.config(bg="#F7DC6F")
-window.resizable(width=False, height=False)
-window.title('Book Recommender!')
+window1 = tk.Tk()
+window1.geometry("350x350")
+window1.config(bg="#F7DC6F")
+window1.resizable(width=False, height=False)
+window1.title('Book Recommender!')
+
+#custom window for already read books
+window2 = tk.Tk()
+window2.geometry("350x350")
+window2.config(bg="#F7DC6F")
+window2.resizable(width=False, height=False)
+window2.title('Already Read Books')
 
 # Combobox for genres
 combo = ttk.Combobox(
@@ -160,7 +175,7 @@ btn_read = tk.Button(window, text="Read Already", font=("Arial", 13), command=ma
 
 
 
-# Placing the elements on the screen
+# Placing the elements onwindow1
 lb_heading.place(x=70, y=5)
 lb_subheading.place(x=50, y=40)
 lb_genre.place(x=100, y=70)
