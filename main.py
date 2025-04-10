@@ -115,8 +115,8 @@ def display_rbook(book):
     tbox_genre.config(state='disabled')
 
 def exit():
-    window.destroy()
-
+    window1.destroy()
+    window2.destroy()
 
 #global variables
 current_book_key = None
@@ -147,35 +147,36 @@ combo = ttk.Combobox(
 
 
 # Labels for heading and subheading of GUI
-lb_heading = tk.Label(window, text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
-lb_subheading = tk.Label(window, font=("Arial", 12), text="Enter your favourite genre.",
+lb_heading = tk.Label(window1, text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
+lb_subheading = tk.Label(window1, font=("Arial", 12), text="Enter your favourite genre.",
                          fg="black", bg="#F7DC6F")
 
 # Labels for date, month and year
-lb_genre = tk.Label(window, text="Genre: ", font=('Arial', 12, "bold"), fg="darkgreen", bg="#F7DC6F")
+lb_genre = tk.Label(window1, text="Genre: ", font=('Arial', 12, "bold"), fg="darkgreen", bg="#F7DC6F")
 
 # Label for text box that will display the book
-lb_rbook = tk.Label(window, text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
+lb_rbook = tk.Label(window1, text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
                              bg="#F7DC6F")
-tbox_genre = tk.Text(window, width=30, height=6, state="disabled")
+tbox_genre = tk.Text(window1, width=30, height=6, state="disabled")
 
 
 
 
 # Button to recomend book
-btn_recomend_book = tk.Button(window, text="Recommend Book!", font=("Arial", 13), command=rec_book)
+btn_recomend_book = tk.Button(window1, text="Recommend Book!", font=("Arial", 13), command=rec_book)
 
 # Button to exit application
-btn_exit = tk.Button(window, text="Exit Application!", font=("Arial", 13), command=exit)
+btn_exit = tk.Button(window1, text="Thanks!", font=("Arial", 13), command=exit)
 
 #button to re-recomend book
-btn_read = tk.Button(window, text="Read Already", font=("Arial", 13), command=mark_as_read)
+btn_read = tk.Button(window1, text="Read Already", font=("Arial", 13), command=mark_as_read)
                      #if pressed, then take out current book from list to be chosen
 
 
 
 
-# Placing the elements onwindow1
+# Placing the elements on
+# window1
 lb_heading.place(x=70, y=5)
 lb_subheading.place(x=50, y=40)
 lb_genre.place(x=100, y=70)
