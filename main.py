@@ -107,6 +107,19 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
+def display_window2():
+    # custom window for already read books
+    window2 = tk.Tk()
+    window2.geometry("350x350")
+    window2.config(bg="#F7DC6F")
+    window2.resizable(width=False, height=False)
+    window2.title('Already Read Books')
+
+    # Button to exit application
+    btn_exit = tk.Button(window2, text="Thanks!", font=("Arial", 13), command=window2.destroy())
+
+
+
 def display_rbook(book):
     tbox_genre.config(state='normal')
     ##book info is dispayed in the text boz after clearning the previous info in the textbox
@@ -116,7 +129,6 @@ def display_rbook(book):
 
 def exit():
     window1.destroy()
-    window2.destroy()
 
 #global variables
 current_book_key = None
@@ -132,12 +144,7 @@ window1.config(bg="#F7DC6F")
 window1.resizable(width=False, height=False)
 window1.title('Book Recommender!')
 
-#custom window for already read books
-window2 = tk.Tk()
-window2.geometry("350x350")
-window2.config(bg="#F7DC6F")
-window2.resizable(width=False, height=False)
-window2.title('Already Read Books')
+
 
 # Combobox for genres
 combo = ttk.Combobox(
@@ -171,7 +178,8 @@ btn_exit = tk.Button(window1, text="Thanks!", font=("Arial", 13), command=exit)
 #button to re-recomend book
 btn_read = tk.Button(window1, text="Read Already", font=("Arial", 13), command=mark_as_read)
                      #if pressed, then take out current book from list to be chosen
-
+#button to display all already read books
+btn_showread = tk.Button(window1, text="Your read books", font=("Arial", 13), command=display_window2)
 
 
 
@@ -186,6 +194,7 @@ btn_read.place(x=120, y=140)
 lb_rbook.place(x=50, y=170)
 tbox_genre.place(x=50, y=200)
 btn_exit.place(x=100, y=310)
+btn_showread.place(x=170, y=310)
 
 
 tk.mainloop()
