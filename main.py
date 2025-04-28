@@ -14,9 +14,16 @@ import book_data
 #import random for random selection of books
 import random
 
+#global counter
+global counter
+counter = 1
+
 #functions
 def window2():
+    global counter
 
+    #counter logic
+    if counter < 2:
         window2 = tk2.Tk()
         window2.geometry("350x350")
         window2.config(bg="#F7DC6F")
@@ -36,7 +43,9 @@ def window2():
         btn_exit2.place(x=100, y=310)
         lb_yourbooks.place(x=70, y=5)
 
-        tk2.mainloop()
+        counter +=1
+
+    tk2.mainloop()
 
 def rec_book():
     global current_book_key
@@ -79,6 +88,42 @@ def rec_book():
             print(f"Selected: {book_key} - {current_book['name']}")
         else:
             messagebox.showinfo("No Books Left", "You've read all the dystopian books!")
+            print(already_read)
+
+    elif genre == "fantasy":
+        if book_data.fantasy:  # Check if there are books left
+            # Get a random book key
+            book_key = random.choice(list(book_data.fantasy.keys()))
+            # Get the book data
+            current_book = book_data.fantasy[book_key]
+            # Display the book
+            display_rbook(
+                f"Title: {current_book['name']}\nAuthor: {current_book['author']}\nISBN: {current_book['ISBN']}\nKeywords: {current_book['keywords']}")
+            # Store the current book key as a global variable for the "Read Already" button
+            current_book_key = book_key
+            current_genre = "fantasy"
+            print(f"Selected: {book_key} - {current_book['name']}")
+        else:
+            messagebox.showinfo("No Books Left", "You've read all the fantasy books!")
+            print(already_read)
+
+    elif genre == "suspense":
+        if book_data.suspense:  # Check if there are books left
+            # Get a random book key
+            book_key = random.choice(list(book_data.suspense.keys()))
+            # Get the book data
+            current_book = book_data.suspense[book_key]
+            # Display the book
+            display_rbook(
+                f"Title: {current_book['name']}\nAuthor: {current_book['author']}\nISBN: {current_book['ISBN']}\nKeywords: {current_book['keywords']}")
+            # Store the current book key as a global variable for the "Read Already" button
+            current_book_key = book_key
+            current_genre = "suspense"
+            print(f"Selected: {book_key} - {current_book['name']}")
+        else:
+            messagebox.showinfo("No Books Left", "You've read all the suspense books!")
+            print(already_read)
+
     else:
         messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre.")
 
@@ -128,6 +173,50 @@ def mark_as_read():
             tbox_genre.config(state='normal')
             tbox_genre.delete('1.0', tk.END)
             tbox_genre.config(state='disabled')
+
+            # add to already read list
+            already_read.insert(0, read_already)
+
+            # Reset the current book
+            current_book_key = None
+            current_genre = None
+
+    elif current_genre == "fantasy":
+        if current_book_key in book_data.fantasy:
+            read_already = (list(current_book_key))
+            read_already.append(current_book_key)
+            print("read list", read_already)
+            removed_book = book_data.fantasy.pop(current_book_key)
+            messagebox.showinfo("Book Removed",
+                                f"'{removed_book['name']}' has been removed from your recommendations.")
+            # Clear the display
+            tbox_genre.config(state='normal')
+            tbox_genre.delete('1.0', tk.END)
+            tbox_genre.config(state='disabled')
+
+            # add to already read list
+            already_read.insert(0, read_already)
+
+            # Reset the current book
+            current_book_key = None
+            current_genre = None
+
+    elif current_genre == "suspense":
+        if current_book_key in book_data.suspense:
+            read_already = (list(current_book_key))
+            read_already.append(current_book_key)
+            print("read list", read_already)
+            removed_book = book_data.suspense.pop(current_book_key)
+            messagebox.showinfo("Book Removed",
+                                f"'{removed_book['name']}' has been removed from your recommendations.")
+            # Clear the display
+            tbox_genre.config(state='normal')
+            tbox_genre.delete('1.0', tk.END)
+            tbox_genre.config(state='disabled')
+
+            # add to already read list
+            already_read.insert(0, read_already)
+
             # Reset the current book
             current_book_key = None
             current_genre = None
