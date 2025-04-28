@@ -3,16 +3,41 @@
 #                  Imports
 # used to create a custom window for age calculator
 import tkinter as tk
+import tkinter as tk2
 from tkinter import messagebox
 from tkinter import ttk
 
 #import book_data
 import book_data
+#import window2
 
 #import random for random selection of books
 import random
 
 #functions
+def window2():
+
+        window2 = tk2.Tk()
+        window2.geometry("350x350")
+        window2.config(bg="#F7DC6F")
+        window2.resizable(width=False, height=False)
+        window2.title('Already Read Books')
+
+        # Labels for window 2
+        # label for displaying the already read books
+        lb_yourbooks = tk2.Label(window2, text="Your already books are: ", font=("Arial", 12, "bold"), fg="darkgreen", bg="#F7DC6F")
+
+        def exit():
+            window2.destroy()
+
+        btn_exit2 = tk2.Button(window2, text="Exit", font=("Arial", 13), command=exit)
+
+        # window 2
+        btn_exit2.place(x=100, y=310)
+        lb_yourbooks.place(x=70, y=5)
+
+        tk2.mainloop()
+
 def rec_book():
     global current_book_key
     global current_genre
@@ -107,18 +132,6 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
-def display_window2():
-    # custom window for already read books
-    window2 = tk.Tk()
-    window2.geometry("350x350")
-    window2.config(bg="#F7DC6F")
-    window2.resizable(width=False, height=False)
-    window2.title('Already Read Books')
-
-    # Button to exit application
-    btn_exit = tk.Button(window2, text="Thanks!", font=("Arial", 13), command=window2.destroy())
-
-
 
 def display_rbook(book):
     tbox_genre.config(state='normal')
@@ -137,7 +150,7 @@ global read_already_list
 
 # MAIN
 
-# creating custom window
+# creating custom window 1
 window1 = tk.Tk()
 window1.geometry("350x350")
 window1.config(bg="#F7DC6F")
@@ -146,40 +159,40 @@ window1.title('Book Recommender!')
 
 
 
+
 # Combobox for genres
 combo = ttk.Combobox(
     state="radonly",
-    values=["Romance", "Dystopian"]
+    values=["Romance", "Dystopian", "Fantasy", "Suspense"]
 )
 
-
+#Labels for window 1
 # Labels for heading and subheading of GUI
-lb_heading = tk.Label(window1, text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
-lb_subheading = tk.Label(window1, font=("Arial", 12), text="Enter your favourite genre.",
+lb_heading = tk.Label(text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
+lb_subheading = tk.Label(font=("Arial", 12), text="Enter your favourite genre.",
                          fg="black", bg="#F7DC6F")
 
 # Labels for date, month and year
-lb_genre = tk.Label(window1, text="Genre: ", font=('Arial', 12, "bold"), fg="darkgreen", bg="#F7DC6F")
+lb_genre = tk.Label(text="Genre: ", font=('Arial', 12, "bold"), fg="darkgreen", bg="#F7DC6F")
 
 # Label for text box that will display the book
-lb_rbook = tk.Label(window1, text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
+lb_rbook = tk.Label(text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
                              bg="#F7DC6F")
-tbox_genre = tk.Text(window1, width=30, height=6, state="disabled")
-
-
+tbox_genre = tk.Text(width=30, height=6, state="disabled")
 
 
 # Button to recomend book
-btn_recomend_book = tk.Button(window1, text="Recommend Book!", font=("Arial", 13), command=rec_book)
+btn_recomend_book = tk.Button(text="Recommend Book!", font=("Arial", 13), command=rec_book)
 
-# Button to exit application
-btn_exit = tk.Button(window1, text="Thanks!", font=("Arial", 13), command=exit)
+# Button to exit application for both windows
+btn_exit = tk.Button(text="Exit", font=("Arial", 13), command=exit)
+
 
 #button to re-recomend book
-btn_read = tk.Button(window1, text="Read Already", font=("Arial", 13), command=mark_as_read)
+btn_read = tk.Button(text="Read Already", font=("Arial", 13), command=mark_as_read)
                      #if pressed, then take out current book from list to be chosen
 #button to display all already read books
-btn_showread = tk.Button(window1, text="Your read books", font=("Arial", 13), command=display_window2)
+btn_showread = tk.Button(window1, text="Show read books", font=("Arial", 13), command=window2)
 
 
 
@@ -195,6 +208,7 @@ lb_rbook.place(x=50, y=170)
 tbox_genre.place(x=50, y=200)
 btn_exit.place(x=100, y=310)
 btn_showread.place(x=170, y=310)
+
 
 
 tk.mainloop()
