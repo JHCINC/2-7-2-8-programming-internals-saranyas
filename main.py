@@ -39,9 +39,22 @@ def window2():
 
         btn_exit2 = tk2.Button(window2, text="Exit", font=("Arial", 13), command=exit)
 
-        # window 2
+        tbox_book.config(state='normal')
+        tbox_book.delete('1.0', tk.END)
+        tbox_book.config(state='disabled')
+
+        #box to display the books names:
+        tbox_read_already = tk2.Text(window2, width=30, height=15, state="disabled")
+
+        for item in already_read:
+            print(item)
+
+
+
+        # window 2 things place
         btn_exit2.place(x=100, y=310)
         lb_yourbooks.place(x=70, y=5)
+        tbox_read_already.place(x=50, y=50)
 
         counter +=1
 
@@ -150,9 +163,9 @@ def mark_as_read():
             messagebox.showinfo("Book Removed",
                                 f"'{removed_book['name']}' has been removed from your recommendations.")
             # Clear the display
-            tbox_genre.config(state='normal')
-            tbox_genre.delete('1.0', tk.END)
-            tbox_genre.config(state='disabled')
+            tbox_book.config(state='normal')
+            tbox_book.delete('1.0', tk.END)
+            tbox_book.config(state='disabled')
 
             #add to already read list
             already_read.insert(0, read_already)
@@ -170,9 +183,9 @@ def mark_as_read():
             messagebox.showinfo("Book Removed",
                                 f"'{removed_book['name']}' has been removed from your recommendations.")
             # Clear the display
-            tbox_genre.config(state='normal')
-            tbox_genre.delete('1.0', tk.END)
-            tbox_genre.config(state='disabled')
+            tbox_book.config(state='normal')
+            tbox_book.delete('1.0', tk.END)
+            tbox_book.config(state='disabled')
 
             # add to already read list
             already_read.insert(0, read_already)
@@ -190,9 +203,9 @@ def mark_as_read():
             messagebox.showinfo("Book Removed",
                                 f"'{removed_book['name']}' has been removed from your recommendations.")
             # Clear the display
-            tbox_genre.config(state='normal')
-            tbox_genre.delete('1.0', tk.END)
-            tbox_genre.config(state='disabled')
+            tbox_book.config(state='normal')
+            tbox_book.delete('1.0', tk.END)
+            tbox_book.config(state='disabled')
 
             # add to already read list
             already_read.insert(0, read_already)
@@ -210,9 +223,9 @@ def mark_as_read():
             messagebox.showinfo("Book Removed",
                                 f"'{removed_book['name']}' has been removed from your recommendations.")
             # Clear the display
-            tbox_genre.config(state='normal')
-            tbox_genre.delete('1.0', tk.END)
-            tbox_genre.config(state='disabled')
+            tbox_book.config(state='normal')
+            tbox_book.delete('1.0', tk.END)
+            tbox_book.config(state='disabled')
 
             # add to already read list
             already_read.insert(0, read_already)
@@ -223,11 +236,11 @@ def mark_as_read():
 
 
 def display_rbook(book):
-    tbox_genre.config(state='normal')
+    tbox_book.config(state='normal')
     ##book info is dispayed in the text boz after clearning the previous info in the textbox
-    tbox_genre.delete('1.0', tk.END)
-    tbox_genre.insert(tk.END, book)
-    tbox_genre.config(state='disabled')
+    tbox_book.delete('1.0', tk.END)
+    tbox_book.insert(tk.END, book)
+    tbox_book.config(state='disabled')
 
 def exit():
     window1.destroy()
@@ -267,7 +280,7 @@ lb_genre = tk.Label(text="Genre: ", font=('Arial', 12, "bold"), fg="darkgreen", 
 # Label for text box that will display the book
 lb_rbook = tk.Label(text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
                              bg="#F7DC6F")
-tbox_genre = tk.Text(width=30, height=6, state="disabled")
+tbox_book = tk.Text(width=30, height=6, state="disabled")
 
 
 # Button to recomend book
@@ -294,7 +307,7 @@ combo.place(x=180, y=70)
 btn_recomend_book.place(x=100, y=100)
 btn_read.place(x=120, y=140)
 lb_rbook.place(x=50, y=170)
-tbox_genre.place(x=50, y=200)
+tbox_book.place(x=50, y=200)
 btn_exit.place(x=100, y=310)
 btn_showread.place(x=170, y=310)
 
