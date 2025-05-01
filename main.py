@@ -26,13 +26,13 @@ def window2():
     if counter < 2:
         window2 = tk2.Tk()
         window2.geometry("350x350")
-        window2.config(bg="#F7DC6F")
+        window2.config(bg="#4ecdc4")
         window2.resizable(width=False, height=False)
         window2.title('Already Read Books')
 
         # Labels for window 2
         # label for displaying the already read books
-        lb_yourbooks = tk2.Label(window2, text="Your already books are: ", font=("Arial", 12, "bold"), fg="darkgreen", bg="#F7DC6F")
+        lb_yourbooks = tk2.Label(window2, text="Your already books are: ", font=("Arial", 12, "bold"), fg="#1a535c", bg="#4ecdc4")
 
         def exit():
             window2.destroy()
@@ -42,13 +42,16 @@ def window2():
         tbox_book.config(state='normal')
         tbox_book.delete('1.0', tk.END)
         tbox_book.config(state='disabled')
+        tbox_book.insert(tk2.END, already_read)
 
         #box to display the books names:
         tbox_read_already = tk2.Text(window2, width=30, height=15, state="disabled")
 
-        for item in already_read:
-            print(item)
+        def display_already_read(already_read):
+            for item in already_read:
+                tbox_read_already.insert(tk.END, str(item) + "\n")
 
+        display_already_read(already_read)
 
 
         # window 2 things place
@@ -59,6 +62,7 @@ def window2():
         counter +=1
 
     tk2.mainloop()
+
 
 def rec_book():
     global current_book_key
@@ -140,8 +144,7 @@ def rec_book():
     else:
         messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre.")
 
-#empty list for already read books to be added:
-already_read = []
+
 
 # Create a new function for the "Read Already" button
 def mark_as_read():
@@ -248,14 +251,16 @@ def exit():
 #global variables
 current_book_key = None
 current_genre = None
-global read_already_list
+global already_list
+#empty list for already read books to be added:
+already_read = []
 
 # MAIN
 
 # creating custom window 1
 window1 = tk.Tk()
 window1.geometry("350x350")
-window1.config(bg="#F7DC6F")
+window1.config(bg="#4ecdc4")
 window1.resizable(width=False, height=False)
 window1.title('Book Recommender!')
 
@@ -270,16 +275,16 @@ combo = ttk.Combobox(
 
 #Labels for window 1
 # Labels for heading and subheading of GUI
-lb_heading = tk.Label(text="Book Recommender!", font=("Arial", 20), fg="black", bg="#F7DC6F")
+lb_heading = tk.Label(text="Book Recommender!", font=("Arial", 20), fg="black", bg="#4ecdc4")
 lb_subheading = tk.Label(font=("Arial", 12), text="Enter your favourite genre.",
-                         fg="black", bg="#F7DC6F")
+                         fg="black", bg="#4ecdc4")
 
 # Labels for date, month and year
-lb_genre = tk.Label(text="Genre: ", font=('Arial', 12, "bold"), fg="darkgreen", bg="#F7DC6F")
+lb_genre = tk.Label(text="Genre: ", font=('Arial', 12, "bold"), fg="#1a535c", bg="#4ecdc4")
 
 # Label for text box that will display the book
-lb_rbook = tk.Label(text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="darkgreen",
-                             bg="#F7DC6F")
+lb_rbook = tk.Label(text="The recommended book for your is: ", font=('Arial', 12, "bold"), fg="#1a535c",
+                             bg="#4ecdc4")
 tbox_book = tk.Text(width=30, height=6, state="disabled")
 
 
