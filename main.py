@@ -1,7 +1,7 @@
 '''Book Recommender'''
 # Date: 24/3/2025
 #                  Imports
-# used to create a custom window for age calculator
+# used to create a custom window
 import tkinter as tk
 import tkinter as tk2
 from tkinter import messagebox
@@ -261,7 +261,6 @@ already_read = []
 window1 = tk.Tk()
 window1.geometry("350x350")
 window1.config(bg="#4ecdc4")
-window1.resizable(width=False, height=False)
 window1.title('Book Recommender!')
 
 
