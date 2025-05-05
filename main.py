@@ -19,7 +19,80 @@ global counter
 counter = 1
 
 #functions
+def exit_2():
+    window2_instance.destroy()
+
+def display_already_read():
+    # Get reference to the text box in window2
+    global tbox_read_already
+
+    # Enable the textbox for editing
+    tbox_read_already.config(state='normal')
+    tbox_read_already.delete('1.0', tk2.END)
+
+    # Add each book from the already read list to the textbox
+    if already_read_list:
+        for item in already_read_list:
+            if isinstance(item, list):
+                book_key = ''.join(item[:-1])  # Convert list of characters back to string
+                tbox_read_already.insert(tk2.END, str(book_key) + "\n")
+            else:
+                tbox_read_already.insert(tk2.END, str(item) + "\n")
+    else:
+        tbox_read_already.insert(tk2.END, "No books in your read list yet.")
+
+    # Disable the textbox again
+    tbox_read_already.config(state='disabled')
+
+def display_already_readtest():
+    global tbox_already_read
+    tbox_already_read = tk2.Text(window2, width=30, height=15, state="disabled")
+
+    tbox_read_already.config(state='normal')
+    tbox_read_already.delete('1.0', tk2.END)
+
+    print(str(item) + "\n")
+
 def window2():
+    global counter
+    global window2_instance
+    global tbox_read_already
+
+    # Counter logic
+    if counter < 2:
+        window2_instance = tk2.Tk()
+        window2_instance.geometry("350x350")
+        window2_instance.config(bg="#4ecdc4")
+        window2_instance.resizable(width=False, height=False)
+        window2_instance.title('Already Read Books')
+
+        # Labels for window 2
+        # Label for displaying the already read books
+        lb_yourbooks = tk2.Label(window2_instance, text="Your already read books are: ",
+                               font=("Arial", 12, "bold"), fg="#1a535c", bg="#4ecdc4")
+
+        # Exit button
+        btn_exit2 = tk2.Button(window2_instance, text="Exit", font=("Arial", 13), command=exit_2)
+
+        # Box to display the books names:
+        tbox_read_already = tk2.Text(window2_instance, width=30, height=15)
+        tbox_read_already.config(state='normal')
+
+        # Call the function to display already read books
+        display_already_read()
+
+        # Window 2 things place
+        btn_exit2.place(x=100, y=310)
+        lb_yourbooks.place(x=70, y=5)
+        tbox_read_already.place(x=50, y=50)
+
+        counter += 1
+
+    tk2.mainloop()
+
+def window2test():
+
+
     global counter
 
     #counter logic
@@ -34,24 +107,21 @@ def window2():
         # label for displaying the already read books
         lb_yourbooks = tk2.Label(window2, text="Your already books are: ", font=("Arial", 12, "bold"), fg="#1a535c", bg="#4ecdc4")
 
-        def exit():
-            window2.destroy()
 
-        btn_exit2 = tk2.Button(window2, text="Exit", font=("Arial", 13), command=exit)
 
-        tbox_book.config(state='normal')
-        tbox_book.delete('1.0', tk.END)
-        tbox_book.config(state='disabled')
-        tbox_book.insert(tk2.END, already_read)
+        btn_exit2 = tk2.Button(window2, text="Exit", font=("Arial", 13), command=exit_2)
+
+        tbox_already_read.config(state='normal')
+        tbox_already_read.delete('1.0', tk.END)
+        tbox_already_read.config(state='disabled')
+        tbox_already_read.insert(tk2.END, display_already_read)
 
         #box to display the books names:
-        tbox_read_already = tk2.Text(window2, width=30, height=15, state="disabled")
+        #tbox_already_read = tk2.Text(window2, width=30, height=15, state="disabled")
 
-        def display_already_read(already_read):
-            for item in already_read:
-                tbox_read_already.insert(tk.END, str(item) + "\n")
 
-        display_already_read(already_read)
+
+        #display_already_read(already_read_list)
 
 
         # window 2 things place
@@ -88,7 +158,7 @@ def rec_book():
             print(f"Selected: {book_key} - {current_book['name']}")
         else:
             messagebox.showinfo("No Books Left", "You've read all the romance books!")
-            print(already_read)
+            print(already_read_list)
 
     elif genre == "dystopian":
         if book_data.dystopian:  # Check if there are books left
@@ -105,7 +175,7 @@ def rec_book():
             print(f"Selected: {book_key} - {current_book['name']}")
         else:
             messagebox.showinfo("No Books Left", "You've read all the dystopian books!")
-            print(already_read)
+            print(already_read_list)
 
     elif genre == "fantasy":
         if book_data.fantasy:  # Check if there are books left
@@ -122,7 +192,7 @@ def rec_book():
             print(f"Selected: {book_key} - {current_book['name']}")
         else:
             messagebox.showinfo("No Books Left", "You've read all the fantasy books!")
-            print(already_read)
+            print(already_read_list)
 
     elif genre == "suspense":
         if book_data.suspense:  # Check if there are books left
@@ -139,7 +209,7 @@ def rec_book():
             print(f"Selected: {book_key} - {current_book['name']}")
         else:
             messagebox.showinfo("No Books Left", "You've read all the suspense books!")
-            print(already_read)
+            print(already_read_list)
 
     else:
         messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre.")
@@ -171,7 +241,7 @@ def mark_as_read():
             tbox_book.config(state='disabled')
 
             #add to already read list
-            already_read.insert(0, read_already)
+            already_read_list.insert(0, read_already)
 
             # Reset the current book
             current_book_key = None
@@ -191,7 +261,7 @@ def mark_as_read():
             tbox_book.config(state='disabled')
 
             # add to already read list
-            already_read.insert(0, read_already)
+            already_read_list.insert(0, read_already)
 
             # Reset the current book
             current_book_key = None
@@ -211,7 +281,7 @@ def mark_as_read():
             tbox_book.config(state='disabled')
 
             # add to already read list
-            already_read.insert(0, read_already)
+            already_read_list.insert(0, read_already)
 
             # Reset the current book
             current_book_key = None
@@ -231,7 +301,7 @@ def mark_as_read():
             tbox_book.config(state='disabled')
 
             # add to already read list
-            already_read.insert(0, read_already)
+            already_read_list.insert(0, read_already)
 
             # Reset the current book
             current_book_key = None
@@ -251,9 +321,9 @@ def exit():
 #global variables
 current_book_key = None
 current_genre = None
-global already_list
+global already_read_list
 #empty list for already read books to be added:
-already_read = []
+already_read_list = []
 
 # MAIN
 
