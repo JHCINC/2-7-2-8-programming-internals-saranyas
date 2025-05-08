@@ -15,6 +15,31 @@ import book_data
 import random
 
 #functions
+
+def display_already_read():
+    # Get reference to the text box in window2
+    global tbox_read_already
+
+
+    # Enable the textbox for editing
+    tbox_read_already.config(state='normal')
+    tbox_read_already.delete('1.0', tk2.END)
+
+    # Add each book from the already read list to the textbox
+    if already_read_list:
+        for item in already_read_list:
+            if isinstance(item, list):
+                book_key = ''.join(item[:-1])  # Convert list of characters back to string
+                tbox_read_already.insert(tk2.END, str(book_key) + "\n")
+            else:
+                tbox_read_already.insert(tk2.END, str(item) + "\n")
+    else:
+        tbox_read_already.insert(tk2.END, "No books in your read list yet.")
+
+    # Disable the textbox again
+    tbox_read_already.config(state='disabled')
+
+
 def rec_book():
     global current_book_key
     global current_genre
@@ -93,7 +118,7 @@ def rec_book():
             print(already_read_list)
 
     else:
-        messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre.")
+        messagebox.showinfo("Genre Not Found", f"Sorry, we don't have books in the '{genre}' genre. Please choose a genre from the dropdown menu.")
 
 
 
@@ -200,13 +225,13 @@ def exit():
     window1.destroy()
 
 
-def exit_2():
-    top.destroy()
 
 #global variables
 current_book_key = None
 current_genre = None
 global already_read_list
+window_2 = None
+tboz_read_already = None
 #empty list for already read books to be added:
 already_read_list = []
 
@@ -220,7 +245,7 @@ def setflag(event):
 
 
 def top():
-    global ontop
+    global ontop, window_2, tbox_read_already
     if not ontop:
         window_2 = tk.Toplevel()
         window_2.geometry("350x350")
@@ -228,25 +253,30 @@ def top():
         window_2.resizable(width=False, height=False)
         window_2.title('Already Read Books')
 
+        def exit_2():
+            window_2.destroy()
+
         # Labels for window 2
         # Label for displaying the already read books
         lb_yourbooks = tk.Label(window_2, text="Your already read books are: ",
                                  font=("Arial", 12, "bold"), fg="#1a535c", bg="#4ecdc4")
 
         # Exit button
-        btn_exit2 = tk.Button(window_2, text="Exit", font=("Arial", 13), command=exit_2)
+        btn_exit2 = tk.Button(window_2, text="Back Home", font=("Arial", 13), command=exit_2)
 
         # Box to display the books names:
         tbox_read_already = tk.Text(window_2, width=30, height=15)
-        tbox_read_already.config(state='normal')
+
 
         # Call the function to display already read books
-        #display_already_read()
+        display_already_read()
 
         # top things place
         btn_exit2.place(x=100, y=310)
         lb_yourbooks.place(x=70, y=5)
         tbox_read_already.place(x=50, y=50)
+
+        # Set the ontop flag to True and bind the destroy event to reset the flag
         window_2.bind('<Destroy>', setflag)
     ontop = True
 
