@@ -14,64 +14,7 @@ import book_data
 #import random for random selection of books
 import random
 
-
-ontop = False
-
-def setflag(event):
-    global ontop
-    ontop = False
-
 #functions
-def exit_2():
-    top.destroy()
-
-def top():
-    global ontop
-    if not ontop:
-        top = tk.Toplevel()
-        top.geometry("350x350")
-        top.config(bg="#4ecdc4")
-        top.resizable(width=False, height=False)
-        top.title('Already Read Books')
-
-        # Labels for window 2
-        # Label for displaying the already read books
-        lb_yourbooks = tk.Label(top, text="Your already read books are: ",
-                                 font=("Arial", 12, "bold"), fg="#1a535c", bg="#4ecdc4")
-
-        # Exit button
-        btn_exit2 = tk.Button(top, text="Exit", font=("Arial", 13), command=exit_2)
-
-        # Box to display the books names:
-        tbox_read_already = tk.Text(top, width=30, height=15)
-        tbox_read_already.config(state='normal')
-
-        # Call the function to display already read books
-        #display_already_read()
-
-        # Window 2 things place
-        btn_exit2.place(x=100, y=310)
-        lb_yourbooks.place(x=70, y=5)
-        tbox_read_already.place(x=50, y=50)
-        top.bind('<Destroy>', setflag)
-    ontop = True
-
-
-# creating custom window 1
-window1 = tk.Tk()
-window1.geometry("350x350")
-window1.config(bg="#4ecdc4")
-window1.title('Book Recommender!')
-
-
-root = window1
-b = tk.Button(root,command=top)
-b.pack()
-
-root.mainloop()
-
-
-
 def rec_book():
     global current_book_key
     global current_genre
@@ -256,6 +199,10 @@ def display_rbook(book):
 def exit():
     window1.destroy()
 
+
+def exit_2():
+    top.destroy()
+
 #global variables
 current_book_key = None
 current_genre = None
@@ -263,7 +210,47 @@ global already_read_list
 #empty list for already read books to be added:
 already_read_list = []
 
-# MAIN
+
+ontop = False
+
+def setflag(event):
+    global ontop
+    ontop = False
+
+
+
+def top():
+    global ontop
+    if not ontop:
+        window_2 = tk.Toplevel()
+        window_2.geometry("350x350")
+        window_2.config(bg="#4ecdc4")
+        window_2.resizable(width=False, height=False)
+        window_2.title('Already Read Books')
+
+        # Labels for window 2
+        # Label for displaying the already read books
+        lb_yourbooks = tk.Label(window_2, text="Your already read books are: ",
+                                 font=("Arial", 12, "bold"), fg="#1a535c", bg="#4ecdc4")
+
+        # Exit button
+        btn_exit2 = tk.Button(window_2, text="Exit", font=("Arial", 13), command=exit_2)
+
+        # Box to display the books names:
+        tbox_read_already = tk.Text(window_2, width=30, height=15)
+        tbox_read_already.config(state='normal')
+
+        # Call the function to display already read books
+        #display_already_read()
+
+        # top things place
+        btn_exit2.place(x=100, y=310)
+        lb_yourbooks.place(x=70, y=5)
+        tbox_read_already.place(x=50, y=50)
+        window_2.bind('<Destroy>', setflag)
+    ontop = True
+
+#MAIN
 
 # creating custom window 1
 window1 = tk.Tk()
@@ -271,6 +258,10 @@ window1.geometry("350x350")
 window1.config(bg="#4ecdc4")
 window1.title('Book Recommender!')
 
+#button to display all already read books
+root = window1
+btn_showread = tk.Button(window1, text="Show read books", font=("Arial", 13), command=top)
+btn_showread.pack()
 
 
 
@@ -305,8 +296,7 @@ btn_exit = tk.Button(window1,text="Exit", font=("Arial", 13), command=exit)
 #button to re-recomend book
 btn_read = tk.Button(window1, text="Read Already", font=("Arial", 13), command=mark_as_read)
                      #if pressed, then take out current book from list to be chosen
-#button to display all already read books
-btn_showread = tk.Button(window1, text="Show read books", font=("Arial", 13), command=top)
+
 
 
 
@@ -322,6 +312,7 @@ lb_rbook.place(x=50, y=170)
 tbox_book.place(x=50, y=200)
 btn_exit.place(x=100, y=310)
 btn_showread.place(x=170, y=310)
+
 
 
 
