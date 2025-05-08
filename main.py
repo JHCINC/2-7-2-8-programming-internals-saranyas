@@ -9,7 +9,6 @@ from tkinter import ttk
 
 #import book_data
 import book_data
-#import window2
 
 #import random for random selection of books
 import random
@@ -39,7 +38,7 @@ def display_already_read():
     # Disable the textbox again
     tbox_read_already.config(state='disabled')
 
-
+#rec book for recomend a book
 def rec_book():
     global current_book_key
     global current_genre
@@ -49,6 +48,7 @@ def rec_book():
     current_book = None
 
     # choose random book in genres
+    #in romance
     if genre == "romance":
         if book_data.romance:  # Check if there are books left
             # Get a random book key
@@ -66,6 +66,7 @@ def rec_book():
             messagebox.showinfo("No Books Left", "You've read all the romance books!")
             print(already_read_list)
 
+    #in dystopian
     elif genre == "dystopian":
         if book_data.dystopian:  # Check if there are books left
             # Get a random book key
@@ -83,6 +84,7 @@ def rec_book():
             messagebox.showinfo("No Books Left", "You've read all the dystopian books!")
             print(already_read_list)
 
+    #in fantasy
     elif genre == "fantasy":
         if book_data.fantasy:  # Check if there are books left
             # Get a random book key
@@ -100,6 +102,7 @@ def rec_book():
             messagebox.showinfo("No Books Left", "You've read all the fantasy books!")
             print(already_read_list)
 
+    #in suspence
     elif genre == "suspense":
         if book_data.suspense:  # Check if there are books left
             # Get a random book key
@@ -133,6 +136,7 @@ def mark_as_read():
         return
 
     # Remove the book from the appropriate dictionary
+    #from romance
     if current_genre == "romance":
         if current_book_key in book_data.romance:
             read_already = (list(current_book_key))
@@ -153,6 +157,7 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
+    #from dystopian
     elif current_genre == "dystopian":
         if current_book_key in book_data.dystopian:
             read_already = (list(current_book_key))
@@ -173,6 +178,7 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
+    #from fantasy
     elif current_genre == "fantasy":
         if current_book_key in book_data.fantasy:
             read_already = (list(current_book_key))
@@ -193,6 +199,7 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
+    #from suspence
     elif current_genre == "suspense":
         if current_book_key in book_data.suspense:
             read_already = (list(current_book_key))
@@ -213,7 +220,7 @@ def mark_as_read():
             current_book_key = None
             current_genre = None
 
-
+#to display recomended book
 def display_rbook(book):
     tbox_book.config(state='normal')
     ##book info is dispayed in the text boz after clearning the previous info in the textbox
@@ -221,6 +228,7 @@ def display_rbook(book):
     tbox_book.insert(tk.END, book)
     tbox_book.config(state='disabled')
 
+#exit
 def exit():
     window1.destroy()
 
@@ -243,7 +251,7 @@ def setflag(event):
     ontop = False
 
 
-
+#top = window 2
 def top():
     global ontop, window_2, tbox_read_already
     if not ontop:
